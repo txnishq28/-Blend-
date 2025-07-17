@@ -12,25 +12,13 @@ export default function Favorites() {
 
   const { data, error, isLoading } = useGetTopHeadlinesQuery(categories)
 
-  console.log('FAVORITES:', favorites)
-
-  if (isLoading) {
-    return <div className="p-4">Loading favorites...</div>
-  }
-
-  if (error) {
-    return <div className="p-4 text-red-500">Error fetching news.</div>
-  }
-
-  if (!data?.articles?.length) {
-    return <div className="p-4">No news found for selected categories.</div>
-  }
+  if (isLoading) return <div className="p-4">Loading favorites...</div>
+  if (error) return <div className="p-4 text-red-500">Error fetching news.</div>
+  if (!data?.articles?.length) return <div className="p-4">No news found for selected categories.</div>
 
   const favoriteArticles = data.articles.filter((article: Article) =>
     favorites.includes(article.url)
   )
-
-  console.log('MATCHED:', favoriteArticles)
 
   if (!favoriteArticles.length) {
     return <div className="p-4">No favorites yet. ⭐ Add some from your feed!</div>
@@ -44,8 +32,8 @@ export default function Favorites() {
             <Image
               src={article.urlToImage}
               alt={article.title}
-              width={600}
-              height={300}
+              width={400}
+              height={250}
               className="w-full h-40 object-cover rounded mb-4"
             />
           )}
