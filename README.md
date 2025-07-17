@@ -3,6 +3,7 @@
 **Your personalized infinite dashboard.**  
 A sleek, modern feed for trending news, favorites, drag-and-drop cards, dark mode, and more.
 
+Link -: https://blend--projects.vercel.app/ (https://blend--projects.vercel.app/)
 ---
 
 ## ✨ Features
