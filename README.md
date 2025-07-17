@@ -1,40 +1,91 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/pages/api-reference/create-next-app).
+# 🚀 Blend ♾️
 
-## Getting Started
+**Your personalized infinite dashboard.**  
+A sleek, modern feed for trending news, favorites, drag-and-drop cards, dark mode, and more.
 
-First, run the development server:
+---
+
+## ✨ Features
+
+✅ **Custom Feed** — Curated news headlines by category  
+✅ **Favorites** — Mark articles as favorites & view them anytime  
+✅ **Drag-and-Drop** — Reorder your feed with Framer Motion  
+✅ **Dark Mode** — Toggle dark/light mode with one click  
+✅ **Debounced Search** — Filter news instantly  
+✅ **Responsive** — Works perfectly on desktop & mobile  
+✅ **Polished UI** — Clean Tailwind styling + animations
+
+---
+
+## 🛠️ Built With
+
+- **Next.js 14**
+- **React**
+- **Redux Toolkit + RTK Query**
+- **Tailwind CSS**
+- **Framer Motion**
+- **NewsAPI**
+
+---
+
+## 🚀 Getting Started
+
+### 1️⃣ Clone the repo
 
 ```bash
+git clone https://github.com/txnishq28/-Blend-.git
+cd -Blend-
+2️⃣ Install dependencies
+bash
+npm install
+# or
+yarn install
+3️⃣ Add your .env.local
+Create .env.local:
+
+env
+NEXT_PUBLIC_NEWS_API_KEY=your_api_key_here
+4️⃣ Run locally
+bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+📂 Folder Structure
+/src/components — Reusable UI: Feed, Header, Layout, Favorites
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+/src/store — Redux slices: favoritesSlice, preferencesSlice, searchSlice, newsApiSlice
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+/pages — Next.js pages: index.tsx, favorites.tsx
 
-[API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+/public — Static assets
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes) instead of React pages.
+💡 Roadmap
+ Trending feed with drag-and-drop
 
-This project uses [`next/font`](https://nextjs.org/docs/pages/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+ Favorites & persistence
 
-## Learn More
+ Dark mode toggle
 
-To learn more about Next.js, take a look at the following resources:
+ User preferences panel
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn-pages-router) - an interactive Next.js tutorial.
+ Spotify / TMDB integration
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+ Infinite scroll
 
-## Deploy on Vercel
+⭐️ Contributing
+PRs are welcome!
+File issues or ideas here.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+📜 License
+MIT — free to use & modify.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/pages/building-your-application/deploying) for more details.
+🚀 Made with ❤️ by @txnishq28
+yaml
+
+---
+
+### ✅ What you can do next:
+- Save as `README.md` at your project root  
+- Commit & push:  
+  ```bash
+  git add README.md
+  git commit -m "Add project README"
+  git push

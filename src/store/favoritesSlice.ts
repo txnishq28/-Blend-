@@ -1,11 +1,16 @@
+// src/store/favoritesSlice.ts
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 interface FavoritesState {
-  items: string[] // ✅ store URLs
+  items: string[]
 }
 
+const persisted = typeof window !== 'undefined'
+  ? JSON.parse(localStorage.getItem('favorites') || '[]')
+  : []
+
 const initialState: FavoritesState = {
-  items: [],
+  items: persisted,
 }
 
 export const favoritesSlice = createSlice({
@@ -19,6 +24,8 @@ export const favoritesSlice = createSlice({
       } else {
         state.items.push(url)
       }
+      // ✅ Save to localStorage every change
+      localStorage.setItem('favorites', JSON.stringify(state.items))
     },
   },
 })
