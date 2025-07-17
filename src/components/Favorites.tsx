@@ -1,10 +1,10 @@
 'use client'
 
 import { useSelector } from 'react-redux'
-import { RootState } from '@/store/store'
+import { RootState } from '@/store'
 import { useGetTopHeadlinesQuery } from '@/store/newsApiSlice'
-import Image from 'next/image'
 import { Article } from '@/types/Article'
+import Image from 'next/image'
 
 export default function Favorites() {
   const categories = useSelector((state: RootState) => state.preferences.categories)
@@ -12,13 +12,25 @@ export default function Favorites() {
 
   const { data, error, isLoading } = useGetTopHeadlinesQuery(categories)
 
-  if (isLoading) return <div className="p-4">Loading favorites...</div>
-  if (error) return <div className="p-4 text-red-500">Error fetching news.</div>
-  if (!data?.articles?.length) return <div className="p-4">No news found for selected categories.</div>
+  console.log('FAVORITES:', favorites)
 
-  const favoriteArticles: Article[] = data.articles.filter((article: Article) =>
+  if (isLoading) {
+    return <div className="p-4">Loading favorites...</div>
+  }
+
+  if (error) {
+    return <div className="p-4 text-red-500">Error fetching news.</div>
+  }
+
+  if (!data?.articles?.length) {
+    return <div className="p-4">No news found for selected categories.</div>
+  }
+
+  const favoriteArticles = data.articles.filter((article: Article) =>
     favorites.includes(article.url)
   )
+
+  console.log('MATCHED:', favoriteArticles)
 
   if (!favoriteArticles.length) {
     return <div className="p-4">No favorites yet. ⭐ Add some from your feed!</div>
@@ -26,14 +38,14 @@ export default function Favorites() {
 
   return (
     <div className="grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-      {favoriteArticles.map((article) => (
+      {favoriteArticles.map((article: Article) => (
         <div key={article.url} className="bg-white dark:bg-black rounded shadow p-4">
           {article.urlToImage && (
             <Image
               src={article.urlToImage}
               alt={article.title}
               width={600}
-              height={400}
+              height={300}
               className="w-full h-40 object-cover rounded mb-4"
             />
           )}
