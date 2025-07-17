@@ -1,8 +1,7 @@
 // src/store/newsApiSlice.ts
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
-const NEWS_API_KEY = process.env.NEXT_PUBLIC_NEWS_API_KEY
-
+const NEWS_API_KEY = process.env.NEXT_PUBLIC_NEWS_API_KEY as string
 
 export const newsApi = createApi({
   reducerPath: 'newsApi',
