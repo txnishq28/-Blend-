@@ -1,69 +1,60 @@
-import { useEffect, useState } from 'react'
-import { Reorder } from 'framer-motion'
+'use client'
+
+import { useGetTopHeadlinesQuery } from '@/store/newsApiSlice'
 import { useSelector, useDispatch } from 'react-redux'
 import { RootState } from '@/store'
-import { useGetTopHeadlinesQuery } from '@/store/newsApiSlice'
 import { toggleFavorite } from '@/store/favoritesSlice'
+import { Article } from '@/types/Article'
+import Image from 'next/image'
 
 export default function Feed() {
-  const dispatch = useDispatch()
   const categories = useSelector((state: RootState) => state.preferences.categories)
-  const searchTerm = useSelector((state: RootState) => state.search.searchTerm)
   const favorites = useSelector((state: RootState) => state.favorites.items)
+  const dispatch = useDispatch()
 
-  const { data, isLoading } = useGetTopHeadlinesQuery(categories)
-  const [items, setItems] = useState<any[]>([])
+  const { data, error, isLoading } = useGetTopHeadlinesQuery(categories)
 
-  useEffect(() => {
-    if (data?.articles) {
-      setItems(data.articles)
-    }
-  }, [data])
-
-  if (isLoading) return <div className="p-4">Loading your Blend feed...</div>
-
-  const filtered = items.filter((item) =>
-    item.title?.toLowerCase().includes(searchTerm.toLowerCase())
-  )
+  if (isLoading) return <div className="p-4">Loading feed...</div>
+  if (error) return <div className="p-4 text-red-500">Error fetching news.</div>
+  if (!data?.articles?.length) return <div className="p-4">No news found.</div>
 
   return (
-    <Reorder.Group axis="y" values={items} onReorder={setItems} className="space-y-4">
-      {filtered.map((item) => (
-        <Reorder.Item
-          key={item.url}
-          value={item}
-          className="p-4 bg-white dark:bg-black rounded shadow transition-colors"
-          whileHover={{ scale: 1.02 }}
-          whileDrag={{ scale: 1.05 }}
-        >
-          <a href={item.url} target="_blank" rel="noopener noreferrer">
-            <img
-              src={item.urlToImage || 'https://via.placeholder.com/600x400?text=No+Image'}
-              alt={item.title || 'News image'}
-              className="w-full mb-2 rounded"
+    <div className="grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+      {data.articles.map((article: Article) => (
+        <div key={article.url} className="bg-white dark:bg-black rounded shadow p-4">
+          {article.urlToImage && (
+            <Image
+              src={article.urlToImage}
+              alt={article.title}
+              width={400}
+              height={250}
+              className="w-full h-40 object-cover rounded mb-4"
             />
-          </a>
-          <h3 className="font-bold text-lg">{item.title}</h3>
-          <p className="text-sm text-gray-700 dark:text-gray-300 mb-2">{item.description}</p>
-          <div className="flex items-center justify-between">
+          )}
+          <h2 className="text-xl font-semibold mb-2">{article.title}</h2>
+          <p className="text-sm mb-4">{article.description}</p>
+          <div className="flex justify-between items-center">
             <a
-              href={item.url}
+              href={article.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-blue-600 dark:text-blue-400 hover:underline text-sm"
+              className="inline-block px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700"
             >
               Read More →
             </a>
             <button
-  onClick={() => dispatch(toggleFavorite(item.url))}
-  className="ml-4 p-2 rounded border hover:bg-blue-100"
->
-  {favorites.includes(item.url) ? '⭐' : '☆'}
-</button>
-
+              onClick={() => dispatch(toggleFavorite(article.url))}
+              className={`ml-4 px-3 py-2 rounded ${
+                favorites.includes(article.url)
+                  ? 'bg-yellow-500 text-black'
+                  : 'bg-gray-200 text-black'
+              }`}
+            >
+              {favorites.includes(article.url) ? '★ Saved' : '☆ Save'}
+            </button>
           </div>
-        </Reorder.Item>
+        </div>
       ))}
-    </Reorder.Group>
+    </div>
   )
 }
