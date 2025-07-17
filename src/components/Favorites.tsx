@@ -1,7 +1,7 @@
 'use client'
 
 import { useSelector } from 'react-redux'
-import { RootState } from '@/store'
+import { RootState } from '@/store/store'
 import { useGetTopHeadlinesQuery } from '@/store/newsApiSlice'
 import { Article } from '@/types/Article'
 import Image from 'next/image'
