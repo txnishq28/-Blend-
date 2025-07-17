@@ -1,9 +1,13 @@
-import { Article } from '@/types/Article'
-
-const favoriteArticles = data.articles.filter((article: Article) =>
-  favorites.includes(article.url)
-)
-
-...
-
-{favoriteArticles.map((article: Article) => (...))}
+export interface Article {
+  source?: {
+    id?: string | null
+    name?: string
+  }
+  author?: string | null
+  title: string
+  description?: string
+  url: string
+  urlToImage?: string
+  publishedAt?: string
+  content?: string
+}
