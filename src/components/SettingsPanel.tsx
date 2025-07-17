@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from 'react-redux'
-import { RootState } from '@/store'
+import { RootState } from '@/store/store'
 import { setCategories } from '@/store/preferencesSlice'
 
 export default function SettingsPanel() {
