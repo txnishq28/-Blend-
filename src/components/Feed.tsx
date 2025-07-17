@@ -2,7 +2,7 @@
 
 import { useGetTopHeadlinesQuery } from '@/store/newsApiSlice'
 import { useSelector, useDispatch } from 'react-redux'
-import { RootState } from '@/store'
+import { RootState } from '@/store/store'
 import { toggleFavorite } from '@/store/favoritesSlice'
 import { Article } from '@/types/Article'
 import Image from 'next/image'
