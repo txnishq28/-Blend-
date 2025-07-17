@@ -2,9 +2,9 @@
 
 import { useGetTopHeadlinesQuery } from '@/store/newsApiSlice'
 import { useSelector } from 'react-redux'
-import { RootState } from '@/store/store'
-import Image from 'next/image'
+import { RootState } from '@/store'
 import { Article } from '@/types/Article'
+import Image from 'next/image'
 
 export default function Trending() {
   const categories = useSelector((state: RootState) => state.preferences.categories)
@@ -14,18 +14,18 @@ export default function Trending() {
   if (error) return <div className="p-4 text-red-500">Error fetching trending news.</div>
   if (!data?.articles?.length) return <div className="p-4">No trending news found.</div>
 
-  const trending: Article[] = data.articles.slice(0, 5)
+  const trending = data.articles.slice(0, 5)
 
   return (
     <div className="grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-      {trending.map((article) => (
-        <div key={article.url} className="bg-white dark:bg-black rounded shadow p-4">
+      {trending.map((article: Article, idx: number) => (
+        <div key={idx} className="bg-white dark:bg-black rounded shadow p-4">
           {article.urlToImage && (
             <Image
               src={article.urlToImage}
               alt={article.title}
               width={600}
-              height={400}
+              height={300}
               className="w-full h-40 object-cover rounded mb-4"
             />
           )}
