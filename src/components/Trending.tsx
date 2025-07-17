@@ -2,7 +2,7 @@
 
 import { useGetTopHeadlinesQuery } from '@/store/newsApiSlice'
 import { useSelector } from 'react-redux'
-import { RootState } from '@/store'
+import { RootState } from '@/store/store'
 import { Article } from '@/types/Article'
 import Image from 'next/image'
 
@@ -18,14 +18,14 @@ export default function Trending() {
 
   return (
     <div className="grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-      {trending.map((article: Article, idx: number) => (
-        <div key={idx} className="bg-white dark:bg-black rounded shadow p-4">
+      {trending.map((article: Article) => (
+        <div key={article.url} className="bg-white dark:bg-black rounded shadow p-4">
           {article.urlToImage && (
             <Image
               src={article.urlToImage}
               alt={article.title}
-              width={600}
-              height={300}
+              width={400}
+              height={250}
               className="w-full h-40 object-cover rounded mb-4"
             />
           )}
